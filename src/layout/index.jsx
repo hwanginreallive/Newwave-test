@@ -26,13 +26,6 @@ const Wrapper = () => {
     },
   ];
 
-  const pageTitle = {
-    "/": "Dashboard",
-    "/dashboard": "Dashboard",
-    "/post_management": "Posts Management",
-    "/settings": "Settings",
-  };
-
   return (
     <Layout
       style={{
@@ -62,7 +55,9 @@ const Wrapper = () => {
           }}
           children={
             <h2 style={{ margin: 0, paddingLeft: 20 }}>
-              {pageTitle[pathname]}
+              {pathname === "/"
+                ? "Dashboard"
+                : items.find((item) => pathname.includes(item.key))?.label}
             </h2>
           }
         />
