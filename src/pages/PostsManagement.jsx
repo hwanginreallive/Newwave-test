@@ -42,6 +42,7 @@ const PostsManagement = () => {
     {
       title: "Id",
       dataIndex: "id",
+      sorter: (a, b) => a.id - b.id,
     },
     {
       title: "User ID",

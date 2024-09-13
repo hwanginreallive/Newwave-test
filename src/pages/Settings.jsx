@@ -88,7 +88,10 @@ const Settings = () => {
             },
           ]}
         >
-          <DatePicker style={{ width: "100%" }} />
+          <DatePicker.RangePicker
+            format="DD/MM/YYYY"
+            style={{ width: "100%" }}
+          />
         </Form.Item>
         {isDirty && (
           <Button htmlType="submit" style={{ marginTop: 20, width: 100 }}>
