@@ -47,6 +47,11 @@ const Dashboard = () => {
     "May",
     "June",
     "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
   ];
 
   const dataSubscription = {
@@ -73,7 +78,7 @@ const Dashboard = () => {
     datasets: [
       {
         label: "Simple column chart",
-        data: [33, 53, 85, 100, 44, 65, 80],
+        data: [33, 53, 85, 100, 44, 65, 80, 40, 22, 33, 55, 11],
         backgroundColor: [
           "#6d78ad",
           "#51cda0",
@@ -91,32 +96,20 @@ const Dashboard = () => {
     <div style={{ padding: 20, paddingTop: 30 }}>
       <div style={{ display: "flex", gap: 10 }}>
         <Button
-          style={{
-            color:
-              pathname.includes("subscription") || pathname === "/"
-                ? "#115BB2"
-                : "black",
-            borderColor:
-              pathname.includes("subscription") || pathname === "/"
-                ? "#115BB2"
-                : "#5C5C5C",
-          }}
+          type={!pathname.includes("revenue") ? "primary" : "default"}
           onClick={() => navigate("/dashboard/subscription")}
         >
-          Subcription
+          Subscription
         </Button>
         <Button
-          style={{
-            color: pathname.includes("revenue") ? "#115BB2" : "black",
-            borderColor: pathname.includes("revenue") ? "#115BB2" : "#5C5C5C",
-          }}
           onClick={() => navigate("/dashboard/revenue")}
+          type={pathname.includes("revenue") ? "primary" : "default"}
         >
           Revenue
         </Button>
       </div>
 
-      <div style={{ marginTop: 20, width: 800, margin: "auto" }}>
+      <div style={{ marginTop: 20, width: 1000, margin: "auto" }}>
         <h3 style={{ marginBottom: 10, textAlign: "center" }}>
           {pathname?.includes("revenue")
             ? "Simple column chart"

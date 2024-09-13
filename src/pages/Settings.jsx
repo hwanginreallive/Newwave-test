@@ -1,14 +1,25 @@
-import { Button, DatePicker, Form, Input } from "antd";
+import { Button, ColorPicker, DatePicker, Form, Input } from "antd";
 import { useForm } from "antd/es/form/Form";
-import React from "react";
+import React, { useState } from "react";
+
+const defaultValues = {
+  active_date: "",
+  email: "",
+  background: "",
+  title: "",
+};
 
 const Settings = () => {
   const [form] = useForm();
+  const [isDirty, setIsDirty] = useState(false);
 
   const handleSubmit = (values) => {
-    console.log("values", values);
+    console.log("values", {
+      ...values,
+      background: values.background.toHexString(),
+    });
   };
-  console.log("form", form);
+
   return (
     <div style={{ margin: 50 }}>
       <Form
@@ -22,23 +33,68 @@ const Settings = () => {
           columnGap: "60px",
           rowGap: "20px",
         }}
+        onFieldsChange={(values) => {
+          const isFieldGotValue = values?.some((item) => item?.value);
+          if (!isFieldGotValue || !isDirty) {
+            setIsDirty(isFieldGotValue);
+          }
+        }}
+        initialValues={defaultValues}
       >
-        <Form.Item name={"Title"} label="Title:">
+        <Form.Item
+          name={"title"}
+          label="Title:"
+          rules={[
+            {
+              required: true,
+              message: "Title is required",
+            },
+          ]}
+        >
           <Input />
         </Form.Item>
-        <Form.Item name={"email"} label="Email:">
+        <Form.Item
+          name={"email"}
+          label="Email:"
+          rules={[
+            {
+              required: true,
+              type: "email",
+              message: "The input is not valid E-mail!",
+            },
+          ]}
+        >
           <Input />
         </Form.Item>
-        <Form.Item name={"background"} label="Background Color:">
-          <Input />
+        <Form.Item
+          name={"background"}
+          label="Background color:"
+          rules={[
+            {
+              required: true,
+              message: "Background color is required",
+            },
+          ]}
+        >
+          <ColorPicker showText allowClear />
         </Form.Item>
-        <Form.Item name={"active_date"} label="Active date:">
+        <Form.Item
+          name={"active_date"}
+          label="Active date:"
+          rules={[
+            {
+              required: true,
+              message: "Active date is required",
+            },
+          ]}
+        >
           <DatePicker style={{ width: "100%" }} />
         </Form.Item>
-
-        <Button htmlType="submit" style={{ marginTop: 20, width: 100 }}>
-          Save
-        </Button>
+        {isDirty && (
+          <Button htmlType="submit" style={{ marginTop: 20, width: 100 }}>
+            Save
+          </Button>
+        )}
       </Form>
     </div>
   );
